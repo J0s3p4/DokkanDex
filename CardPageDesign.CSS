@@ -2,3 +2,31 @@ body {
     font-family: sans-serif;
 }
 
+
+
+
+body {
+    background-color: pink;
+
+}
+
+#card-container {
+    
+    /* Creates static background image */
+    background-image: url(DokkanGrid.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+  
+    border: 20px solid black; /* adjust the border width as needed */
+    border-radius: 20px; /* adjust the border radius as needed */
+
+  }
+
+  .card-name{
+    color: #FF9922;
+  }
+
+  .card-title{
+    color: white;
+  }

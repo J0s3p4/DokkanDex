@@ -5,29 +5,24 @@
 /* This is to be changed later */
 
 
-
 /* Default grid with 4 columns */
 #card-container {
-    
+    width: 70%; /* adjust as needed */
+    margin: 0 auto; /* centers the element horizontally */
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));  /* adjusts the columns to fit the screen size (love this) */
     grid-gap: 2px;
+    
 }
 
 .card {
     transform: scale(0.7);
 }
 
-/* Change to 3 columns on screens smaller than 600px */
-@media only screen and (max-width: 900px) {
-    #card-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
+#page-button-container {
+    display: flex; /* makes container a flex container */
+    justify-content: center; /* centers elements horizontally */
+    align-items: center; /* centers elements vertically */
+    position: absolute; /* positions the container absolutely */
 }
 
-/* Change to 2 column on screens smaller than 400px */
-@media only screen and (max-width: 600px) {
-    #card-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
