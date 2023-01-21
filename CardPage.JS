@@ -5,7 +5,7 @@ const cardsPerPage = 20;
 let currentPage = 1;
 
 
-
+// Fetch card database
 fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCharacterData.json')
 
   .then(response => {
@@ -16,9 +16,6 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
   })
 
 
-
-
-  
   .then(data => {
 
    // console.log(data);
@@ -28,14 +25,47 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
     // Defines card container
     const cardContainer = document.getElementById('card-container');
 
-    //ONLY DISPLAY 50 FOR TESTING PURPOSES
-    const cardsToDisplay = data.slice(0, 50);
+
+    function displayCards(data, page) {
+      const startIndex = (page - 1) * cardsPerPage;
+      const cardsToDisplay = data.slice(startIndex, startIndex + cardsPerPage);
+
+          // Clear the container of any existing card elements
+      while (cardContainer.firstChild) {
+      cardContainer.removeChild(cardContainer.firstChild);
+        }
+
+        cardsToDisplay.forEach(card => {
+        // Create card element and add it to the container
+        const cardElement = createCardElement(card);
+        cardContainer.appendChild(cardElement);
+         });
+  }
 
 
+
+    displayCards(data, currentPage);
+
+    const prevButton = document.getElementById("prev");
+    prevButton.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        displayCards(data,currentPage);
+      }
+    })
+
+    const nextButton = document.getElementById("next");
+    nextButton.addEventListener('click', () => {
+      if (currentPage < Math.ceil(data.length / cardsPerPage)) {
+        currentPage++;
+        displayCards(data,currentPage);
+      }
+    })
 
     
+
     // Populates HTML cardContainer with Cards
-    function createCardElements(card) {
+    function createCardElement(card) {
 
       // Creates a div for each "card"
       const cardElement = document.createElement('div');
@@ -65,16 +95,8 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
 
       // data is the JSON object containing the cards information
       // iterates over the cards and display them on the page
+      return cardElement;
     }
-
-    
-      cardsToDisplay.forEach(card => {
-        createCardElements(card);
-      });
-      
-
-    
-
     
 })
 
