@@ -8,6 +8,7 @@ let currentPage = 1;
 // Fetch card database
 fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCharacterData.json')
 
+  // Check if database is responsive 
   .then(response => {
     if(!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -18,12 +19,15 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
 
   .then(data => {
 
-    // Defines card container
+    // Defines card container from HTML file
     const cardContainer = document.getElementById('card-container');
+
+      // Initialize Data
+      let currentData = data;
 
 
     function displayCards(data, page) {
-        //Calculate range of cards to display
+        // Calculate range of cards to display
       const startIndex = (page - 1) * cardsPerPage;
       const cardsToDisplay = data.slice(startIndex, startIndex + cardsPerPage);
 
@@ -41,7 +45,32 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
   }
 
     // displayCards function
-    displayCards(data, currentPage);
+    displayCards(currentData, currentPage);
+
+
+
+
+    // Search button element
+    const searchButton = document.getElementById('search-button');
+    // Search button event listener
+    searchButton.addEventListener('click', () => {
+    // Search bar element
+    const searchInput = document.getElementById('search-bar').value;
+    // Fiters cards based on search term (Case sensitive)
+    currentData = data.filter(card => card.name.includes(searchInput) || card.title.includes(searchInput));
+    // Reset current page to 1
+    currentPage = 1;
+
+    // Displays filtered cards 
+    displayCards(currentData, currentPage);
+
+    // Update current page element
+    currentPageElement.textContent = currentPage;
+
+    // Listens for button input, gets search term, filters cards, sets current page to 1, displays cards
+
+    });
+
 
 
       // prevButton listener
@@ -49,7 +78,7 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
     prevButton.addEventListener('click', () => {
       if (currentPage > 1) {
         currentPage--;
-        displayCards(data,currentPage);
+        displayCards(currentData,currentPage);
 
         currentPageElement.textContent = currentPage; // Current page
       }
@@ -57,19 +86,20 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
       //nextButton listener
     const nextButton = document.getElementById("next");
     nextButton.addEventListener('click', () => {
-      if (currentPage < Math.ceil(data.length / cardsPerPage)) {
+      if (currentPage < Math.ceil(currentData.length / cardsPerPage)) {
         currentPage++;
-        displayCards(data,currentPage);
+        displayCards(currentData,currentPage);
 
         currentPageElement.textContent = currentPage; // Current Page
       }
     })
 
 
-    // currentPage text element between buttons
+    // currentPage text element between buttons - creates filteredData
     const currentPageElement = document.getElementById('current-page');
     currentPageElement.textContent = currentPage; 
 
+      
 
 
     // Creates a card element, with selected card data

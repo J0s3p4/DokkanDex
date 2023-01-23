@@ -19,10 +19,14 @@
     transform: scale(0.7);
 }
 
-#page-button-container {
+
+
+
+
+
+#menu-bar {
     display: flex; /* makes container a flex container */
     justify-content: center; /* centers elements horizontally */
     align-items: center; /* centers elements vertically */
     position: absolute; /* positions the container absolutely */
 }
-
