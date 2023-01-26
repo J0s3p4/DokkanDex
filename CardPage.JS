@@ -48,33 +48,46 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
     displayCards(currentData, currentPage);
 
 
+    //Reference objects that filter to give them event listeners 
+      const typeSelector = document.getElementById('type-filter');
+        typeSelector.addEventListener('change', filterCards);
+      const searchBar = document.getElementById('search-bar');
+        searchBar.addEventListener('input', filterCards);
 
 
-    // Search button element
-    const searchButton = document.getElementById('search-button');
-    // Search button event listener
-    searchButton.addEventListener('click', () => {
-    // Search bar element
-    const searchInput = document.getElementById('search-bar').value;
-    // Fiters cards based on search term (Case sensitive)
-    currentData = data.filter(card => card.name.includes(searchInput) || card.title.includes(searchInput));
-    // Reset current page to 1
-    currentPage = 1;
+        function filterCards(){
+          //Get filter values 
+          const selectedType = typeSelector.value;
+          const searchInput = searchBar.value.toLowerCase(); //To lower case, title and name are also converted to lowercase
 
-    // Displays filtered cards 
-    displayCards(currentData, currentPage);
 
-    // Update current page element
-    currentPageElement.textContent = currentPage;
 
-    // Listens for button input, gets search term, filters cards, sets current page to 1, displays cards
+          //Current data becomes filtered data to be displayed
+            currentData = data.filter(card => {
+              if(selectedType === 'All' || card.type === selectedType) {  //All cards or cards are Selected type
+                if (searchInput === '' || //empty search bar all cards 
+                 card.name.toLowerCase().includes(searchInput)|| card.title.toLowerCase().includes(searchInput)) { //compares the search input to names and title 
+                  return true;
+               }
+              }
+            return false;
+            });
 
-    });
+              //Initialize current page, results may be more or less than one page 
+              currentPage = 1;
+              currentPageElement.textContent = currentPage;
 
+              //Display new data on  page
+              displayCards(currentData, currentPage);
+          }
+                            
+              
+        
 
 
       // prevButton listener
     const prevButton = document.getElementById("prev");
+    
     prevButton.addEventListener('click', () => {
       if (currentPage > 1) {
         currentPage--;
@@ -141,3 +154,33 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
 
 
 
+
+
+
+
+
+
+/*
+    // Search button element
+    const searchButton = document.getElementById('search-button');
+
+    // Search button event listener
+    searchButton.addEventListener('click', () => {
+    // Search bar element
+    const searchInput = document.getElementById('search-bar').value;
+    // Fiters cards based on search term (Case sensitive)
+    currentData = data.filter(card => card.name.includes(searchInput) || card.title.includes(searchInput));
+    // Reset current page to 1
+    currentPage = 1;
+
+    // Displays filtered cards 
+    displayCards(currentData, currentPage);
+
+    // Update current page element
+    currentPageElement.textContent = currentPage;
+
+    // Listens for button input, gets search term, filters cards, sets current page to 1, displays cards
+
+    });
+
+    */
