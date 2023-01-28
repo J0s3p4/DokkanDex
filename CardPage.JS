@@ -153,7 +153,10 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
       // Appends the card element to the card container
       cardContainer.appendChild(cardElement);
 
-
+      const aquiredButton = document.createElement("button");
+      aquiredButton.textContent = "Aquired";
+      aquiredButton.classList.add("aquired-button");
+      cardElement.appendChild(aquiredButton);
 
               //Checks if the card is in the ownedCards array
               if (selectedCards.includes(card.id)) {
@@ -162,7 +165,7 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
 
 
                     //Add a click event listener to the card 
-              cardElement.addEventListener("click", function() {
+              aquiredButton.addEventListener("click", function() {
                 // Toggle the owned class on the card element
                 cardElement.classList.toggle("owned");
 
