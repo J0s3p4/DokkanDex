@@ -3,7 +3,7 @@ body {
 }
 
 body {
-    background-color: rgb(89, 214, 208);
+    background-color: #59d6d0;
 
 }
 
@@ -20,6 +20,9 @@ body {
 
   }
 
+  .card {
+    transform: scale(0.7); /**/
+}
   .card-name{
     color: #FF9922;
   }
@@ -28,9 +31,28 @@ body {
     color: white;
   }
 
-  .card:hover { 
-    transform: scale(1.1);
+
+
+
+  .card:hover :not(button){ 
+    transform: scale(1.2);
     transition: transform .2s; /* Animation */
+  }
+
+  .card button{
+    transform: none;
+    color: black;
+    background-color: #59d6d0;
+    font-weight: bold;
+  font-style: italic;
+    font-size: 20px;
+
+   
+    border-style: solid;
+    border-width: 5px;
+    border-color: white;
+
+    
   }
 
   .menu-bar{
