@@ -2,9 +2,6 @@ body {
     font-family: sans-serif;
 }
 
-
-
-
 body {
     background-color: rgb(89, 214, 208);
 
@@ -35,3 +32,14 @@ body {
     transform: scale(1.1);
     transition: transform .2s; /* Animation */
   }
+
+  .menu-bar{
+    background: #2edf46;  /* Colors menu bar like a scouter*/
+    border: 2px solid white;  /* adjust the border width as needed */
+    border-radius: 20px;  /* adjust the border radius as needed */
+  }
+
+
+  .selected{
+    filter: grayscale(100%);
+}
