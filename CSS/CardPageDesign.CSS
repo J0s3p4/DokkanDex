@@ -39,7 +39,7 @@ body {
     border-radius: 20px;  /* adjust the border radius as needed */
   }
 
-
-  .selected{
+  /* Objects with owned class are grayed out*/
+  .owned{
     filter: grayscale(100%);
 }

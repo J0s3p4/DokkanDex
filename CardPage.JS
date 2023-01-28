@@ -25,6 +25,9 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
       // Initialize Data
       let currentData = data;
 
+      // Creates selectedCards Array, OWNED CARDS, used in createCardElement()
+    let selectedCards = JSON.parse(localStorage.getItem("selectedCards")) || [];
+
 
     function displayCards(data, page) {
         // Calculate range of cards to display
@@ -90,9 +93,6 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
           }
                             
               
-        
-
-
       // prevButton listener
     const prevButton = document.getElementById("prev");
     
@@ -126,6 +126,7 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
     // Creates a card element, with selected card data
     function createCardElement(card) {
 
+
       // Creates a div for each "card"
       const cardElement = document.createElement('div');
       cardElement.classList.add("card");
@@ -152,12 +153,41 @@ fetch('https://raw.githubusercontent.com/MNprojects/DokkanAPI/main/data/DokkanCh
       // Appends the card element to the card container
       cardContainer.appendChild(cardElement);
 
+
+
+              //Checks if the card is in the ownedCards array
+              if (selectedCards.includes(card.id)) {
+                cardElement.classList.add("owned");
+              }
+
+
+                    //Add a click event listener to the card 
+              cardElement.addEventListener("click", function() {
+                // Toggle the owned class on the card element
+                cardElement.classList.toggle("owned");
+
+                // Check if the card is in the selectedCards array
+                if (selectedCards.includes(card.id)) {
+                  // Remove the card from the selectedCards array
+                  selectedCards.splice(selectedCards.indexOf(card.id), 1);
+                } else {
+                  // Add the card to the selectedCards array
+                  selectedCards.push(card.id);
+                }
+
+                // Save the selectedCards array to local storage
+                localStorage.setItem("selectedCards", JSON.stringify(selectedCards));
+              });
+
       // Returns the created card element
       return cardElement;
     }
+
+    
     
 })
 
 
 
 
+//Add class to classlist 'owned' to createcardeelement, store in array
